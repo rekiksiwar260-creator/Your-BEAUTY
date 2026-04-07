@@ -1,401 +1,801 @@
 <!DOCTYPE html>
+
 <html lang="en">
 
+
+
 <head>
+
     <meta charset="UTF-8">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Makeup Store</title>
+
+
 
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
 
+
+
     <style>
+
         * {
+
             margin: 0;
+
             padding: 0;
+
             box-sizing: border-box;
+
             font-family: 'Poppins', sans-serif;
+
         }
+
+
 
         body {
+
             background: #fff0f5;
+
         }
+
+
 
         /* NAVBAR */
+
         nav {
+
             display: flex;
+
             justify-content: space-between;
+
             padding: 20px;
+
             background: #ff4da6;
+
             color: white;
+
         }
+
+
 
         nav h1 {
+
             font-size: 24px;
+
         }
+
+
 
         nav ul {
+
             display: flex;
+
             gap: 20px;
+
             list-style: none;
+
         }
+
+
 
         nav a {
+
             color: white;
+
             text-decoration: none;
+
             transition: 0.3s;
+
         }
+
+
 
         nav a:hover {
+
             color: black;
+
         }
+
+
 
         /* HERO */
+
         .hero {
+
             height: 90vh;
+
             display: flex;
+
             justify-content: center;
+
             align-items: center;
+
             flex-direction: column;
+
             text-align: center;
+
             background: linear-gradient(to right, #ff4da6, #ff99cc);
+
             color: white;
+
         }
+
+
 
         .hero h2 {
+
             font-size: 40px;
+
             margin-bottom: 10px;
+
         }
+
+
 
         .hero p {
+
             margin-bottom: 20px;
+
         }
+
+
 
         .hero button {
+
             padding: 10px 20px;
+
             border: none;
+
             background: black;
+
             color: white;
+
             cursor: pointer;
+
             transition: 0.3s;
+
         }
+
+
 
         .hero button:hover {
+
             transform: scale(1.1);
+
         }
+
+
 
         /* PRODUCTS */
+
         .products {
+
             padding: 40px;
+
             text-align: center;
+
         }
+
+
 
         .products h2 {
+
             margin-bottom: 20px;
+
         }
+
+
 
         .cards {
+
             display: grid;
+
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+
             gap: 20px;
+
         }
+
+
 
         .card {
+
             background: white;
+
             padding: 15px;
+
             border-radius: 15px;
+
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+
             transition: 0.3s;
+
         }
+
+
 
         .card:hover {
+
             transform: translateY(-10px);
+
         }
+
+
 
         .card img {
+
             width: 100%;
+
             border-radius: 10px;
+
         }
+
+
 
         .card h3 {
+
             margin: 10px 0;
+
         }
+
+
 
         .card button {
+
             padding: 8px 15px;
+
             border: none;
+
             background: #ff4da6;
+
             color: white;
+
             cursor: pointer;
+
         }
+
+
 
         /* CONTACT */
+
         .contact {
+
             padding: 40px;
+
             background: #ffe6f0;
+
             text-align: center;
+
         }
+
+
 
         .contact input,
+
         .contact textarea {
+
             width: 80%;
+
             padding: 10px;
+
             margin: 10px;
+
             border: none;
+
             border-radius: 8px;
+
         }
+
+
 
         .contact button {
+
             padding: 10px 20px;
+
             border: none;
+
             background: black;
+
             color: white;
+
         }
+
+
 
         /* FOOTER */
+
         footer {
+
             text-align: center;
+
             padding: 15px;
+
             background: #ff4da6;
+
             color: white;
+
         }
+
+
 
         /* POPUP STYLES */
+
         #popup {
+
             display: none;
+
             position: fixed;
+
             top: 0;
+
             left: 0;
+
             width: 100%;
+
             height: 100%;
+
             background: rgba(0, 0, 0, 0.8);
+
             z-index: 2000;
+
             justify-content: center;
+
             align-items: center;
+
         }
+
+
 
         .modal-content {
+
             background: white;
+
             padding: 30px;
+
             border-radius: 20px;
+
             text-align: center;
+
             max-width: 400px;
+
             width: 90%;
+
             position: relative;
+
         }
+
+
 
         .close-btn {
+
             position: absolute;
+
             right: 20px;
+
             top: 10px;
+
             cursor: pointer;
+
             font-size: 28px;
+
             color: #ff4da6;
+
         }
+
+
 
         #shadesContainer {
+
             display: flex;
+
             justify-content: center;
+
             gap: 15px;
+
             margin: 20px 0;
+
             flex-wrap: wrap;
+
         }
+
+
 
         .shade-img {
+
             width: 60px;
+
             height: 60px;
+
             border-radius: 10px;
+
             cursor: pointer;
+
             border: 3px solid transparent;
+
             transition: 0.2s;
+
             object-fit: cover;
+
         }
 
+
+
         .shade-img.selected {
+
             border-color: black;
+
         }
+
     </style>
+
 </head>
+
+
 
 <body>
 
+
+
     <nav>
+
         <h1>Beauty Shop</h1>
+
         <ul>
+
             <li><a href="#">Home</a></li>
+
             <li><a href="#">Products</a></li>
+
             <li><a href="#">Contact</a></li>
+
         </ul>
+
     </nav>
 
+
+
     <section class="hero">
+
         <h2>Glow with Confidence 💄</h2>
+
         <p>Discover the best makeup products</p>
+
         <button>Shop Now</button>
+
     </section>
+
+
 
     <section class="products">
+
         <h2>Our Products</h2>
 
+
+
         <div class="cards">
+
             <div class="card">
+
                 <img
+
                     src="https://res.cloudinary.com/dj7szcsns/image/upload/v1775467105/61be3577b4280d6f703fcdabd4fe41c9_xohuhs.jpg">
+
                 <h3>Primer</h3>
+
                 <p>$10</p>
+
                 <button onclick="openPopup('Primer')">Buy</button>
+
             </div>
 
+
+
             <div class="card">
+
                 <img
+
                     src="https://res.cloudinary.com/dj7szcsns/image/upload/v1775465964/da4c7d781434f7c923311bafc16fbcb8_g0nm5j.jpg">
+
                 <h3>Foundation</h3>
+
                 <p>$15</p>
+
                 <button onclick="openPopup('Foundation')">Buy</button>
+
             </div>
 
+
+
             <div class="card">
+
                 <img
+
                     src="https://res.cloudinary.com/dj7szcsns/image/upload/v1775494827/3f16db6e37c0ee68b15f5bb3f13a0c42_crza9g.jpg">
+
                 <h3>Concealer</h3>
+
                 <p>$12</p>
+
                 <button onclick="openPopup('Concealer')">Buy</button>
+
             </div>
 
+
+
             <div class="card">
+
                 <img
+
                     src="https://res.cloudinary.com/dj7szcsns/image/upload/v1775467197/b44762159a8c0926434a94adde102a01_ccwifj.jpg">
+
                 <h3>Powder</h3>
+
                 <p>$8</p>
+
                 <button onclick="openPopup('Powder')">Buy</button>
+
             </div>
 
+
+
             <div class="card">
+
                 <img
+
                     src="https://res.cloudinary.com/dj7szcsns/image/upload/v1775466974/a7dc73cf13d9de0a2fb19ae177f78e0b_elxall.jpg">
+
                 <h3>Blush</h3>
+
                 <p>$9</p>
+
                 <button onclick="openPopup('Blush')">Buy</button>
+
             </div>
 
+
+
             <div class="card">
+
                 <img
+
                     src="https://res.cloudinary.com/dj7szcsns/image/upload/v1775494503/a19cdc04fc2455aaae6299f40ff45ff5_vsus17.jpg">
+
                 <h3>Highlighter</h3>
+
                 <p>$11</p>
+
                 <button onclick="openPopup('Highlighter')">Buy</button>
+
             </div>
 
+
+
             <div class="card">
+
                 <img
+
                     src="https://res.cloudinary.com/dj7szcsns/image/upload/v1775466141/551ee56c8041b7f8841a63789b7a586c_fncxrt.jpg">
+
                 <h3>Eyeshadow</h3>
+
                 <p>$14</p>
+
                 <button onclick="openPopup('Eyeshadow')">Buy</button>
+
             </div>
 
+
+
             <div class="card">
+
                 <img
+
                     src="https://res.cloudinary.com/dj7szcsns/image/upload/v1775465898/85863b5140081d728c5c1d92af85aa34_aulidw.jpg">
+
                 <h3>Lipstick</h3>
+
                 <p>$10</p>
+
                 <button onclick="openPopup('Lipstick')">Buy</button>
+
             </div>
 
+
+
             <div class="card">
+
                 <img
+
                     src="https://res.cloudinary.com/dj7szcsns/image/upload/v1775467132/956a6315fcdbf59537825230c3cd51e5_n5efae.jpg">
+
                 <h3>Setting Spray</h3>
+
                 <p>$13</p>
+
                 <button onclick="openPopup('Setting Spray')">Buy</button>
+
             </div>
 
+
+
             <div class="card">
+
                 <img
+
                     src="https://res.cloudinary.com/dj7szcsns/image/upload/v1775466940/6ee5ecb4dcdacc77bef4c6067ce13079_eu4mbe.jpg">
+
                 <h3>Eyeliner</h3>
+
                 <p>$10</p>
+
                 <button onclick="openPopup('Eyeliner')">Buy</button>
+
             </div>
+
         </div>
+
     </section>
+
+
 
     <section class="contact">
+
         <h2>Contact Us</h2>
+
         <input type="text" placeholder="Your Name"><br>
+
         <input type="email" placeholder="Your Email"><br>
+
         <textarea placeholder="Message"></textarea><br>
+
         <button>Send</button>
+
     </section>
 
+
+
     <footer>
+
         <p>© 2026 Beauty Shop</p>
+
     </footer>
 
+
+
     <div id="popup">
+
         <div class="modal-content">
+
             <span class="close-btn" onclick="closePopup()">&times;</span>
+
             <h2 id="productName">Product Name</h2>
+
             <p style="margin: 10px 0;">Select your perfect shade:</p>
+
             <div id="shadesContainer"></div>
+
             <button
+
                 style="background: black; color: white; padding: 12px; width: 100%; border: none; border-radius: 5px; cursor: pointer; font-weight: bold;"
+
                 onclick="confirmPurchase()">Confirm Choice</button>
+
         </div>
+
     </div>
 
+
+
     <script>
+
         let selectedShade = "";
 
+
+
         function openPopup(product) {
+
             document.getElementById("popup").style.display = "flex";
+
             document.getElementById("productName").innerText = product;
+
             let container = document.getElementById("shadesContainer");
+
             container.innerHTML = "";
+
             selectedShade = "";
 
+
+
             // Place your shade image URLs here
+
             let shades = {
+
                 Foundation: ["https://res.cloudinary.com/dj7szcsns/image/upload/v1775495650/066754ccfd8e824462b87fbdbf19fd85_tccfpk.jpg", "https://res.cloudinary.com/dj7szcsns/image/upload/v1775495654/df010381bc77c85128823de8211565ec_r9vjfi.jpg", "https://res.cloudinary.com/dj7szcsns/image/upload/v1775495710/f49011d4696ecd1eb8da7be954f7a7b0_yonebg.jpg"],
+
                 Lipstick: ["https://res.cloudinary.com/dj7szcsns/image/upload/v1775496817/bd902997107001958ad8180c687e512c_vamndk.jpg", "https://res.cloudinary.com/dj7szcsns/image/upload/v1775496848/6dcadbef7f1cbcac82f56c48df1591d0_mazo5w.jpg", "https://res.cloudinary.com/dj7szcsns/image/upload/v1775496864/34b879d462952185dc7040b1a4557ec1_kppwqt.jpg"],
+
                 Blush: ["https://res.cloudinary.com/dj7szcsns/image/upload/v1775496954/43072e436eea9e0d4a2a0297c5994870_huebb3.jpg", "https://res.cloudinary.com/dj7szcsns/image/upload/v1775496961/1eea24240e3aaf8aee50044ff24cd572_vzm0v0.jpg", "https://res.cloudinary.com/dj7szcsns/image/upload/v1775497049/e00529874c9596599f173b718c1990f4_c6nz4k.jpg"],
+
                 Primer: ["https://res.cloudinary.com/dj7szcsns/image/upload/v1775497162/fa76d5cca11e3906ef8f83cfa93816f0_abvood.jpg"],
+
                 Concealer: ["https://res.cloudinary.com/dj7szcsns/image/upload/v1775497264/da2481e67dab478a416120f892d6423a_houxhy.jpg", "https://res.cloudinary.com/dj7szcsns/image/upload/v1775497277/5f50f01a0ade3887dfa7cd4f4debf48b_iu6z2z.jpg", "https://res.cloudinary.com/dj7szcsns/image/upload/v1775497281/07c5b4a02a2b9c479aa1338cb876ae98_av6shi.jpg"],
+
                 Powder: ["https://res.cloudinary.com/dj7szcsns/image/upload/v1775497428/dc9f186fc0ca3cce69186205d4f7896b_xpabvc.jpg", "https://res.cloudinary.com/dj7szcsns/image/upload/v1775497483/0fb70d24113f14f259041fbe99cfa2d3_zm9hyb.jpg"],
+
                 Highlighter: ["https://res.cloudinary.com/dj7szcsns/image/upload/v1775494503/a19cdc04fc2455aaae6299f40ff45ff5_vsus17.jpg", "https://res.cloudinary.com/dj7szcsns/image/upload/v1775497926/b5394b9c8ffa2b4943085ee1395cdc1d_awh7as.jpg"],
+
                 Eyeshadow: ["https://res.cloudinary.com/dj7szcsns/image/upload/v1775497555/6f7f809f5f0e39179bfbc3d43cdce814_ydqwla.jpg", "https://res.cloudinary.com/dj7szcsns/image/upload/v1775497639/dfdfbd291c2464219ea646f00babfc60_cypc1n.jpg"],
+
                 "Setting Spray": ["https://res.cloudinary.com/dj7szcsns/image/upload/v1775497727/6d779642eba77dff7a20e838f3a8e7e1_xsl8gg.jpg"],
+
                 Eyeliner: ["https://res.cloudinary.com/dj7szcsns/image/upload/v1775497785/7b5870f50a46287894aa90360e166650_epyabv.jpg"]
+
             };
 
+
+
             if (shades[product]) {
+
                 shades[product].forEach(imgUrl => {
+
                     let img = document.createElement("img");
+
                     img.src = imgUrl;
+
                     img.classList.add("shade-img");
+
                     img.onclick = function () {
+
                         document.querySelectorAll(".shade-img").forEach(i => i.classList.remove("selected"));
+
                         img.classList.add("selected");
+
                         selectedShade = imgUrl;
+
                     };
+
                     container.appendChild(img);
+
                 });
+
             }
+
         }
+
+
 
         function closePopup() {
+
             document.getElementById("popup").style.display = "none";
+
         }
+
+
 
         function confirmPurchase() {
+
             if (selectedShade === "") alert("Please select a shade first!");
+
             else { alert("Added to cart successfully!"); closePopup(); }
+
         }
+
+
 
         window.onclick = function (event) {
+
             let popup = document.getElementById("popup");
+
             if (event.target == popup) closePopup();
+
         }
+
     </script>
+
 </body>
 
-</html>
+
+
+</html>    
