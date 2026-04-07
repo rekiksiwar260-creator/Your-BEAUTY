@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Beauty Glow - Mega Shop</title>
+    <style>
+        :root {
+            --main-pink: #ff85a1;
+            --dark-pink: #d63384;
+            --wa-green: #25D366;
+        }
+
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: #fffafb;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: auto;
+            text-align: center;
+        }
+
+        /* Lang Switcher */
+        .lang-switcher {
+            margin-bottom: 20px;
+        }
+
+        .lang-btn {
+            padding: 8px 20px;
+            cursor: pointer;
+            border: 2px solid var(--main-pink);
+            background: white;
+            border-radius: 20px;
+            font-weight: bold;
+            color: var(--main-pink);
+            margin: 5px;
+        }
+
+        .lang-btn.active {
+            background: var(--main-pink);
+            color: white;
+        }
+
+        /* Categories Filter */
+        .categories {
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .cat-btn {
+            padding: 5px 15px;
+            border-radius: 15px;
+            border: 1px solid #ccc;
+            background: #eee;
+            cursor: pointer;
+        }
+
+        /* Grid System */
+        .shop-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 20px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: 0.3s;
+            border: 1px solid #ffe0e9;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card:hover {
+            transform: scale(1.03);
+        }
+
+        .card img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+        }
+
+        .card-body {
+            padding: 15px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .prod-name {
+            font-size: 1.1rem;
+            margin: 5px 0;
+            color: #333;
+            height: 45px;
+            overflow: hidden;
+        }
+
+        .price {
+            color: var(--dark-pink);
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin: 10px 0;
+        }
+
+        .btn-whatsapp {
+            background: var(--wa-green);
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: bold;
+            width: 100%;
+        }
+
+        .rtl {
+            direction: rtl;
+        }
+
+        header {
+            padding: 40px 0;
+            background: white;
+            border-radius: 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.02);
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="lang-switcher">
+            <button class="lang-btn" onclick="setLanguage('ar')">العربية</button>
+            <button class="lang-btn active" onclick="setLanguage('fr')">Français</button>
+            <button class="lang-btn" onclick="setLanguage('en')">English</button>
+        </div>
+
+        <header>
+            <h1 id="main-title">Beauty Glow Shop ✨</h1>
+            <p id="sub-title">Découvrez notre large collection de produits de beauté</p>
+        </header>
+
+        <div id="product-list" class="shop-grid">
+        </div>
+    </div>
+
+    <script>
+        // Data mte3 el produits (Zid 9ad ma t7eb houni)
+        const products = [
+            { id: 1, prices: "145 DT", img: "https://images.unsplash.com/photo-1541643600914-78b084683601?w=300", ar: "عطر الورد", fr: "Parfum Rose", en: "Rose Perfume" },
+            { id: 2, prices: "55 DT", img: "https://images.unsplash.com/photo-1556228578-0d85b1a4d571?w=300", ar: "كريم مرطب", fr: "Crème Hydratante", en: "Moisturizing Cream" },
+            { id: 3, prices: "35 DT", img: "https://images.unsplash.com/photo-1586495777744-4413f21062fa?w=300", ar: "أحمر شفاه", fr: "Rouge à Lèvres", en: "Lipstick" },
+            { id: 4, prices: "89 DT", img: "https://images.unsplash.com/photo-1620916566398-39f1143ab7be?w=300", ar: "سيروم وجه", fr: "Sérum Visage", en: "Face Serum" },
+            { id: 5, prices: "45 DT", img: "https://res.cloudinary.com/dj7szcsns/image/upload/v1775570016/292cbe25af28999cbcfb0c3c2383007b_sjykke.jpg", ar: "ماسكرا سوداء", fr: "Mascara Noir", en: "Black Mascara" },
+            { id: 6, prices: "120 DT", img: "https://images.unsplash.com/photo-1594035910387-fea47794261f?w=300", ar: "مجموعة العناية", fr: "Coffret Soin", en: "Skincare Set" },
+            { id: 7, prices: "25 DT", img: "https://images.unsplash.com/photo-1608248597279-f99d160bfcbc?w=300", ar: "طلاء أظافر", fr: "Vernis à Ongles", en: "Nail Polish" },
+            { id: 8, prices: "65 DT", img: "https://images.unsplash.com/photo-1571781926291-c477ebfd024b?w=300", ar: "غسول وجه", fr: "Nettoyant Visage", en: "Face Wash" },
+            { id: 9, prices: "110 DT", img: "https://res.cloudinary.com/dj7szcsns/image/upload/v1775570143/1f7e2b0df43359e51293b815184b4566_nwcv8e.jpg", ar: "علبة ماكياج", fr: "Palette Maquillage", en: "Makeup Palette" },
+            { id: 10, prices: "75 DT", img: "https://images.unsplash.com/photo-1617897903246-719242758050?w=300", ar: "زيت للشعر", fr: "Huile Cheveux", en: "Hair Oil" },
+            { id: 11, prices: "40 DT", img: "https://images.unsplash.com/photo-1601049541289-9b1b7bbbfe19?w=300", ar: "بودرة مضغوطة", fr: "Poudre Compacte", en: "Face Powder" },
+            { id: 12, prices: "130 DT", img: "https://images.unsplash.com/photo-1557170334-a9632e77c6e4?w=300", ar: "عطر ليلي", fr: "Parfum de Nuit", en: "Night Perfume" },
+            { id: 13, prices: "50 DT", img: "https://images.unsplash.com/photo-1625093742435-6fa192b6fb10?w=300", ar: "كريم شمس", fr: "Écran Solaire", en: "Sunscreen" },
+            { id: 14, prices: "15 DT", img: "https://images.unsplash.com/photo-1619451334792-150fd785ee74?w=300", ar: "مرطب شفاه", fr: "Baume à Lèvres", en: "Lip Balm" },
+            { id: 15, prices: "95 DT", img: "https://images.unsplash.com/photo-1591130219388-ae3d1c17431b?w=300", ar: "مزيل ماكياج", fr: "Démaquillant", en: "Makeup Remover" }
+        ];
+
+        const translations = {
+            ar: { title: "بيوتي جلو شوب ✨", subtitle: "أكبر تشكيلة من منتجات التجميل", btn: "اطلب عبر واتساب", msg: "مرحباً، أريد طلب:" },
+            fr: { title: "Beauty Glow Shop ✨", subtitle: "Notre collection complète de beauté", btn: "Commander via WhatsApp", msg: "Bonjour, je souhaite commander :" },
+            en: { title: "Beauty Glow Shop ✨", subtitle: "Our complete beauty collection", btn: "Order via WhatsApp", msg: "Hello, I want to order:" }
+        };
+
+        let currentLang = 'fr';
+
+        function renderProducts() {
+            const list = document.getElementById('product-list');
+            list.innerHTML = "";
+
+            products.forEach(p => {
+                const card = document.createElement('div');
+                card.className = 'card';
+                card.innerHTML = `
+                <img src="${p.img}" alt="Beauty">
+                <div class="card-body">
+                    <h3 class="prod-name">${p[currentLang]}</h3>
+                    <span class="price">${p.prices}</span>
+                    <button class="btn-whatsapp" onclick="sendOrder('${p[currentLang]}', '${p.prices}')">
+                        ${translations[currentLang].btn}
+                    </button>
+                </div>
+            `;
+                list.appendChild(card);
+            });
+        }
+
+        function setLanguage(lang) {
+            currentLang = lang;
+            document.getElementById('main-title').textContent = translations[lang].title;
+            document.getElementById('sub-title').textContent = translations[lang].subtitle;
+            document.body.classList.toggle('rtl', lang === 'ar');
+
+            // Update buttons state
+            document.querySelectorAll('.lang-btn').forEach(b => {
+                b.classList.remove('active');
+                if (b.textContent.toLowerCase().includes(lang) || (lang === 'ar' && b.textContent === 'العربية')) b.classList.add('active');
+            });
+
+            renderProducts();
+        }
+
+        function sendOrder(name, price) {
+            const num = "21622781004"; // Beddel hna
+            const text = `${translations[currentLang].msg} ${name} (${price})`;
+            window.open(`https://wa.me/${num}?text=${encodeURIComponent(text)}`, '_blank');
+        }
+
+        // Load initial products
+        renderProducts();
+    </script>
+
+</body>
+
+</html>
